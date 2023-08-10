@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CompTIA Search</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+      }
+      form {
+        width: 50%;
+      }
+      input {
+        width: 75%;
+        height: 1.5rem;
+      }
+      button {
+        padding: 0.3rem 1rem;
+        margin-left: 0.5rem;
+      }
+    </style>
+  </head>
+  <body id="root">
+    <form id="search-form">
+      <input type="text" placeholder="Search Words" name="search" />
+      <button>Submit</button>
+    </form>
+    <div id="links"></div>
+    <script type="text/javascript">
+      const links = document.getElementById('links');
+      const searchForm = document.getElementById('search-form');
+      let sections = [];
+      fetch('http://localhost:3005/compTIA.json', { mode: 'cors' })
+        .then((res) => {
+          if (!res.ok) {
+            searchForm.remove();
+            const h2 = document.createElement('h2');
+            h2.innerText =
+              'Could not find compTIA.json file. Make sure it is in the same folder as program, then refresh page.';
+            links.appendChild(h2);
+          } else return res.json();
+        })
+        .then((data) => {
+          sections = data;
+        });
+
+      searchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const search = formData.get('search'); // get one item. Target the 'name' attribute
+        // const data = Object.fromEntries(formData); // get all items as object {"firstName": "someValue"}
+        console.log(search);
+        // console.log('i ran');
+        // console.log(data);
+        event.target.reset(); // clear form
+        const wordArr = search.toLowerCase().trim().split(' ');
+
+        // remove child removeAllChildNodes
+        removeAllChildNodes(links);
+        const obj = {};
+        // Match words to array.
+        for (let i = 0; i < sections.length; i++) {
+          // check page title for match
+          const isTitleMatch = wordArr.every((w) => sections[i].title.toLowerCase().indexOf(w) !== -1);
+          // check page text for match
+          const isMatch = wordArr.every((w) => sections[i].data.indexOf(w) !== -1);
+          if (isMatch || isTitleMatch) {
+            // make sure sectionTitle does not exist.
+            if (!obj.hasOwnProperty(sections[i].sectionTitle)) {
+              obj[sections[i].sectionTitle] = [];
+              obj[sections[i].sectionTitle].push({
+                href: sections[i].href,
+                title: `${sections[i].subIndex}: ${sections[i].title}`,
+              });
+              // section title exist, just push the subTitle.
+            } else {
+              obj[sections[i].sectionTitle].push({
+                href: sections[i].href,
+                title: `${sections[i].subIndex}: ${sections[i].title}`,
+              });
+            }
+          }
+        }
+        // fill the page.
+        if (Object.keys(obj).length !== 0) {
+          console.log(obj);
+          for (const [key, value] of Object.entries(obj)) {
+            //
+            const h2 = document.createElement('h2');
+            h2.innerText = key;
+            links.appendChild(h2);
+            //
+            for (const v of value) {
+              const p = document.createElement('p');
+              const a = document.createElement('a');
+              a.href = v.href;
+              a.target = '_blank';
+              a.innerText = v.title;
+              p.appendChild(a);
+              links.appendChild(p);
+            }
+          }
+        } else {
+          const h2 = document.createElement('h2');
+          h2.innerText = 'No matches found.';
+          links.appendChild(h2);
+        }
+      });
+
+      function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+          parent.lastChild.remove();
+        }
+      }
+    </script>
+  </body>
+</html>
