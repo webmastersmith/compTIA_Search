@@ -131,5 +131,5 @@ dist
 # pnpm
 pnpm-lock.yaml
 # do not add compTIA files
-compTIA.*
-compTIA-old*
+compTIA.json*
+compTIA-old.json*
