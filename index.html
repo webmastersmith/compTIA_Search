@@ -52,10 +52,6 @@
         event.preventDefault();
         const formData = new FormData(event.target);
         const search = formData.get('search'); // get one item. Target the 'name' attribute
-        // const data = Object.fromEntries(formData); // get all items as object {"firstName": "someValue"}
-        console.log(search);
-        // console.log('i ran');
-        // console.log(data);
         event.target.reset(); // clear form
         const wordArr = search.toLowerCase().trim().split(' ');
 
@@ -89,7 +85,6 @@
         if (Object.keys(obj).length !== 0) {
           console.log(obj);
           for (const [key, value] of Object.entries(obj)) {
-            //
             const h2 = document.createElement('h2');
             h2.innerText = key;
             links.appendChild(h2);
