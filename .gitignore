@@ -133,3 +133,7 @@ pnpm-lock.yaml
 # do not add compTIA files
 compTIA.json*
 compTIA-old.json*
+*.json
+*.exe
+*.blob
+server-out.js
