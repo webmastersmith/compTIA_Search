@@ -137,3 +137,4 @@ compTIA-old.json*
 # *.exe
 *.blob
 server-out.js
+*.ps1
