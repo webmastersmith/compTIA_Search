@@ -134,6 +134,6 @@ pnpm-lock.yaml
 compTIA.json*
 compTIA-old.json*
 *.json
-*.exe
+# *.exe
 *.blob
 server-out.js
