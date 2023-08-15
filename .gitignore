@@ -138,3 +138,5 @@ compTIA-old.json*
 *.blob
 server-out.js
 *.ps1
+compTIA-search*
+make.sh
