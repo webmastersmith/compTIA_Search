@@ -140,3 +140,4 @@ server-out.js
 *.ps1
 compTIA-search*
 make.sh
+compTIA_executables/
