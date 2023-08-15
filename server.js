@@ -12,15 +12,16 @@ app.get('/', (req, res, next) => {
 // http://localhost:3005/compTIA.json
 app.get('/compTIA.json', (req, res, next) => {
   if (!sections)
-    res
-      .status(404)
-      .send("Could not find the file. make sure it's named: compTIA.json and in the current directory.");
+    res.status(404).send(
+      `Could not find the compTIA.json file.
+      Make sure the file is named: compTIA.json and is in the current directory.`
+    );
   res.status(200).json(sections);
 });
 
 app.listen(port);
-console.log(`\nServer listening on http://localhost:${port}`);
+const url = `http://localhost:${port}`;
+console.log(`\nServer listening on ${url}`);
 // open the page.
-const url = 'http://localhost:3005';
 const start = process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open';
 require('child_process').exec(start + ' ' + url);

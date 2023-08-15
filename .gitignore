@@ -131,13 +131,11 @@ dist
 # pnpm
 pnpm-lock.yaml
 # do not add compTIA files
-compTIA.json*
-compTIA-old.json*
 *.json
 # *.exe
 *.blob
 server-out.js
 *.ps1
 compTIA-search*
-make.sh
 compTIA_executables/
+make*
