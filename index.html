@@ -52,15 +52,15 @@
       searchForm.addEventListener('submit', (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const search = formData.get('search'); // get one item. Target the 'name' attribute
+        const search = formData.get('search').toLowerCase().trim(); // get one item. Target the 'name' attribute
         event.target.reset(); // clear form
         // check if quotes before split.
         let wordArr = [];
         if (/^("|')/.test(search)) {
           // has quotes
-          wordArr.push(search.trim().replace(/("|')/g, ''));
+          wordArr.push(search.replace(/("|')/g, ''));
         } else {
-          wordArr = search.toLowerCase().trim().split(' ');
+          wordArr = search.split(' ');
         }
 
         // remove child removeAllChildNodes
