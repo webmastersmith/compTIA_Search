@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const sections = require('./compTIA.json');
+// change me to the name of your json file.
+const sections = require('./comTIA_JSON/compTIA_Cloud+.json');
 
 const port = 3005;
 const app = express();
