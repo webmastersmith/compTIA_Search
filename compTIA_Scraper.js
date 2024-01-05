@@ -1,9 +1,10 @@
 // To use: Copy and paste into the console of the CompTIA CertMaster Lessons page.
-// It will download a file called 'compTIA.json' to your downloads folder.
+// Change file name it will download to your downloads folder.
 // Copy file to compTIA_JSON folder and rename.
 // Change the name of the file in server.js to match the name of the file you just copied.
-// .\make.ps1 "compTIA_Cloud+"
+// .\make.ps1 "Cloud+"
 (async function () {
+  const fileName = 'compTIA_Project+_PK0-005';
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const delay = 500;
 
@@ -71,7 +72,7 @@
   a.id = 'downloadContent';
   a.style = 'display:none';
   a.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(sections)));
-  a.setAttribute('download', 'compTIA.json');
+  a.setAttribute('download', `${fileName}.json`);
   a.click();
   a.remove();
 
